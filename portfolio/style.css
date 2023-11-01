@@ -1,0 +1,105 @@
+body{ /* Cuerpo de la página */	
+    margin: 0;
+    background: lightgray;
+}
+
+/* Cambiar el color del texto */
+.navbar a {
+    color: #ff005d; /* Cambia "#FF0000" al color que desees */
+    font-family: "Roboto", sans-serif
+}
+
+
+/* Cambiar el color del texto del enlace a rojo cuando se pasa el cursor sobre ellos */
+.navbar-nav .nav-link:hover {
+    color: #ff005d; /* Cambia al color rojo (#FF0000) o al color deseado */
+}
+
+a {
+    text-decoration: none; /* Elimina el subrayado del enlace por defecto */   
+}
+
+.custom-section {
+    padding-top: 50px;
+  }
+  
+  .cb {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .card-text {
+    font-family: "New Tegomin";
+  }
+
+:root {
+    --main-color: white; /* Color principal */
+
+}
+
+    .bg{                /* Clase para el fondo */
+    text-align: center;
+    padding: 10px;
+    height: 100vh;
+    background-size: cover;
+    box-sizing: border-box;
+}
+.bg-text {
+    color:var(--main-color); /* Color del texto */
+    font-weight: bold;
+    border: 3px solid #f1f1f1;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 80%;
+    padding: 20px;
+    text-align: center;
+    font-family: "Rubik Mono One"
+
+}
+footer {
+    background: black;
+    padding: 20px 0;
+    color: var(--main-color);
+    margin-top: 40px;
+    text-align: center; /* Añade esta línea para centrar todo el contenido del footer */
+}
+
+/* Resto de tus estilos CSS */
+.center-text {
+    text-align: center;
+}
+
+.redes a i.icono-mediano:hover {
+    transform: scale(1.2); /* Cambia el valor según tu preferencia */
+}
+
+/* Cambiar el color de los íconos de redes sociales cuando se pasa el cursor sobre ellos */
+.redes a:hover i {
+    color: #f96062; /* Cambia al color deseado cuando se pasa el cursor sobre los íconos */
+}
+
+.redes {
+    text-align: center; /* Alinea el contenido del div a la derecha */
+}
+
+.redes a {
+    margin-right: 10px; /* Agrega margen a la izquierda de cada enlace */
+}
+
+.redes .icono-mediano {
+    font-size: 24px; /* Tamaño mediano */
+    color: darkgray;
+}
+.home {
+    background-image: url(imagenes/cardImageLeftold.jpg) /* Ruta de la imagen de fondo home */
+    
+}
+
+#contact-section {
+    background-image: url(imagenes/cardImageLeftold.jpg) /* Ruta de la imagen de fondo */
+}

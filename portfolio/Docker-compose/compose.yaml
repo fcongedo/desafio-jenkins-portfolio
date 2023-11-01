@@ -1,0 +1,7 @@
+version: '3.7'
+services:
+  mi-portfolio:
+    image: fcongedo/mi-portfolio-apache2:1.0
+    container_name: mi-porfolio-compose
+    ports:
+      - "8080:80"
