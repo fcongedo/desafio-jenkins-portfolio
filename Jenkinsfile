@@ -15,6 +15,7 @@ pipeline {
                 sh 'chmod +x ~/bin/hadolint'
             }
         }
+
         stage('Lint Dockerfile') {
             steps {
                 // Analizar el Dockerfile con Hadolint desde el directorio ~/bin
@@ -26,11 +27,24 @@ pipeline {
                 }
             }
         }
+
         stage('Build') {
             steps {
                 dir('portfolio') {
                     sh "docker build -t ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER} ."
                 }
+            }
+        }
+
+        stage('Login to Dockerhub') {
+            steps {
+                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
+            }
+        }
+
+        stage('Push image to Dockerhub') {
+            steps {
+                sh "docker push ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
             }
         }
     }
