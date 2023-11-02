@@ -8,8 +8,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh "docker build -t ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER} ."
+                dir('portfolio') {
+                    sh "docker build -t ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER} ."
+                }
             }
         }
     }
 }
+
