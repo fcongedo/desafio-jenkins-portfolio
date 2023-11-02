@@ -26,5 +26,12 @@ pipeline {
                 }
             }
         }
+        stage('Build') {
+            steps {
+                dir('portfolio') {
+                    sh "docker build -t ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER} ."
+                }
+            }
+        }
     }
 }
