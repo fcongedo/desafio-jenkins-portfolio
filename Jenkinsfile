@@ -8,9 +8,7 @@ pipeline {
     stages {
         stage('Install Hadolint') {
             steps {
-                // Crea un directorio ~/bin si no existe
                 sh 'mkdir -p ~/bin'
-                // Descarga e instala Hadolint en ~/bin
                 sh 'wget https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-Linux-x86_64 -O ~/bin/hadolint'
                 sh 'chmod +x ~/bin/hadolint'
             }
@@ -18,7 +16,6 @@ pipeline {
 
         stage('Lint Dockerfile') {
             steps {
-                // Analizar el Dockerfile con Hadolint desde el directorio ~/bin
                 script {
                     def hadolintExitCode = sh(script: "~/bin/hadolint portfolio/Dockerfile", returnStatus: true)
                     if (hadolintExitCode != 0) {
@@ -45,6 +42,20 @@ pipeline {
         stage('Push image to Dockerhub') {
             steps {
                 sh "docker push ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
+            }
+        }
+
+        stage('Deploy container') {
+            steps {
+                sh "docker stop ${env.NameContainer} || true"
+                sh "docker rm -f ${env.NameContainer} || true"
+                sh "docker run -d -p 80:80 --name mi-contenedor-apache2 ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
+            }
+        }
+
+        stage('Docker logout') {
+            steps {
+                sh "docker logout"
             }
         }
     }
