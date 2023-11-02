@@ -53,6 +53,19 @@ pipeline {
             }
         }
 
+        stage('Test') {
+            steps {
+                script {
+                    def responseCode = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8080", returnStatus: true)
+                    if (responseCode == 200) {
+                        currentBuild.result = 'SUCCESS'
+                    } else {
+                        currentBuild.result = 'FAILURE'
+                    }
+                }
+            }
+        }
+
         stage('Docker logout') {
             steps {
                 sh "docker logout"
