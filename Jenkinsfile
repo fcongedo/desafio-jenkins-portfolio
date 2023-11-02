@@ -46,12 +46,13 @@ pipeline {
         }
 
         stage('Deploy container') {
-            steps {
-                sh "docker stop ${env.NameContainer} || true"
-                sh "docker rm -f ${env.NameContainer} || true"
-                sh "docker run -d -p 80:80 --name mi-contenedor-apache2 ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
-            }
-        }
+    steps {
+        sh "docker stop ${env.NameContainer} || true"
+        sh "docker rm -f ${env.NameContainer} || true"
+        sh "docker run -d -p 80:80 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
+    }
+}
+
         
         stage('Docker logout') {
             steps {
