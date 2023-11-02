@@ -6,19 +6,20 @@ pipeline {
         NameContainer = "portfolio-website"
     }
     stages {
-        stage('Install Tools') {
+        stage('Install Hadolint') {
             steps {
-                // Instala Hadolint en el agente
-                sh 'wget https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-Linux-x86_64 -O hadolint'
-                sh 'chmod +x hadolint'
-                sh 'sudo mv hadolint /usr/local/bin'
+                // Crea un directorio ~/bin si no existe
+                sh 'mkdir -p ~/bin'
+                // Descarga e instala Hadolint en ~/bin
+                sh 'wget https://github.com/hadolint/hadolint/releases/download/v2.7.0/hadolint-Linux-x86_64 -O ~/bin/hadolint'
+                sh 'chmod +x ~/bin/hadolint'
             }
         }
         stage('Lint Dockerfile') {
             steps {
-                // Analizar el Dockerfile con Hadolint
+                // Analizar el Dockerfile con Hadolint desde el directorio ~/bin
                 script {
-                    def hadolintExitCode = sh(script: "hadolint portfolio/Dockerfile", returnStatus: true)
+                    def hadolintExitCode = sh(script: "~/bin/hadolint portfolio/Dockerfile", returnStatus: true)
                     if (hadolintExitCode != 0) {
                         currentBuild.result = 'FAILURE'
                     }
