@@ -57,9 +57,9 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def curlOutput = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/", returnStatus: true, returnStdout: true)
-                    echo "curlOutput: ${curlOutput}"
-
+                    // Espera 5 segundos antes de ejecutar curl
+                    sleep(time: 5, unit: 'SECONDS')
+                    
                     def responseCode = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/", returnStatus: true)
                     
                     if (responseCode == 200) {
@@ -79,4 +79,3 @@ pipeline {
         }
     }
 }
-
