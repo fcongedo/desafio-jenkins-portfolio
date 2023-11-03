@@ -57,11 +57,8 @@ pipeline {
         stage('Test') {
             steps {
                 script {
-                    def responseCode = sh(
-                        script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/",
-                        returnStatus: true
-                    )
-
+                    def responseCode = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/", returnStatus: true)
+                    
                     if (responseCode == 200) {
                         currentBuild.result = 'SUCCESS'
                     } else {
@@ -79,3 +76,4 @@ pipeline {
         }
     }
 }
+
