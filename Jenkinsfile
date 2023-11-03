@@ -49,7 +49,7 @@ pipeline {
     steps {
         sh "docker stop ${env.NameContainer} || true"
         sh "docker rm -f ${env.NameContainer} || true"
-        sh "docker run -d -p 80:80 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
+        sh "docker run -d -p 8081:80 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
     }
 }
 
