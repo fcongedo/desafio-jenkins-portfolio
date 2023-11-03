@@ -20,6 +20,7 @@ pipeline {
                     def hadolintExitCode = sh(script: "~/bin/hadolint portfolio/Dockerfile", returnStatus: true)
                     if (hadolintExitCode != 0) {
                         currentBuild.result = 'FAILURE'
+                        error("Hadolint found issues in the Dockerfile")
                     }
                 }
             }
@@ -46,30 +47,30 @@ pipeline {
         }
 
         stage('Deploy container') {
-    steps {
-        sh "docker stop ${env.NameContainer} || true"
-        sh "docker rm -f ${env.NameContainer} || true"
-        sh "docker run -d -p 8081:80 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
-    }
-}
-
-stage('Test') {
-    steps {
-        script {
-            def responseCode = sh(
-                script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/",
-                returnStatus: true
-            )
-
-            if (responseCode == 200) {
-                currentBuild.result = 'SUCCESS'
-            } else {
-                currentBuild.result = 'FAILURE'
-                error("El código de respuesta no es 200, en su lugar es ${responseCode}")
+            steps {
+                sh "docker stop ${env.NameContainer} || true"
+                sh "docker rm -f ${env.NameContainer} || true"
+                sh "docker run -d -p 8081:80 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
             }
         }
-    }
-}
+
+        stage('Test') {
+            steps {
+                script {
+                    def responseCode = sh(
+                        script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/",
+                        returnStatus: true
+                    )
+
+                    if (responseCode == 200) {
+                        currentBuild.result = 'SUCCESS'
+                    } else {
+                        currentBuild.result = 'FAILURE'
+                        error("El código de respuesta no es 200, en su lugar es ${responseCode}")
+                    }
+                }
+            }
+        }
 
         stage('Docker logout') {
             steps {
