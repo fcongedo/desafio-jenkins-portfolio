@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     sleep(time: 5, unit: 'SECONDS')
-                    def curlOutput = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/", returnStdout: true).trim()
+                    def curlOutput = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8082/", returnStdout: true).trim()
                     echo "curlOutput: ${curlOutput}"
 
                     if (curlOutput == '200') {
