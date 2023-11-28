@@ -52,7 +52,7 @@ pipeline {
             steps {
                 sh "docker stop ${env.NameContainer} || true"
                 sh "docker rm -f ${env.NameContainer} || true"
-                sh "docker run -d -p 8082:80 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
+                sh "docker run -d -p 8081:81 --name ${env.NameContainer} ${env.RepositoryDockerHub}/${env.NameContainer}:${env.BUILD_NUMBER}"
             }
         }
 
@@ -60,7 +60,7 @@ pipeline {
             steps {
                 script {
                     sleep(time: 5, unit: 'SECONDS')
-                    def curlOutput = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8082/", returnStdout: true).trim()
+                    def curlOutput = sh(script: "curl -s -o /dev/null -w '%{http_code}' http://localhost:8081/", returnStdout: true).trim()
                     echo "curlOutput: ${curlOutput}"
 
                     if (curlOutput == '200') {
