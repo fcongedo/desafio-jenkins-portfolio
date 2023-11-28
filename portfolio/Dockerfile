@@ -5,4 +5,4 @@ FROM httpd:2.4
 COPY ./ /usr/local/apache2/htdocs
 
 # Expone el puerto 80 en el que Apache2 escuchará
-EXPOSE 81
+EXPOSE 80
