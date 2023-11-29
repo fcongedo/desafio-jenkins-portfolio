@@ -34,13 +34,11 @@ pipeline {
             }
         }
 
-        stage('Login to Dockerhub') {
-    steps {
-        withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USR', passwordVariable: 'PSW')]) {
-            sh "echo \$PSW | docker login -u \$USR --password-stdin"
+     stage('Login to Dockerhub') {
+            steps {
+                sh "echo \$DOCKERHUB_CREDENTIALS_PSW | docker login -u \$DOCKERHUB_CREDENTIALS_USR --password-stdin"
+            }
         }
-    }
-}
 
         stage('Push image to Dockerhub') {
             steps {
