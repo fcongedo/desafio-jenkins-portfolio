@@ -35,4 +35,4 @@ jobs:
           context: ./portfolio  
           file: ./portfolio/Dockerfile 
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-website:${{ github.run_number }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-website:latest
