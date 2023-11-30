@@ -8,12 +8,12 @@
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh
 
-Use Docker without sudo
+# Use Docker without sudo
 sudo groupadd docker
 sudo usermod -aG docker vagrant
 newgrp docker
 
-# Install Jenkins
+# Install Jenkins and Java
 sudo wget -O /usr/share/keyrings/jenkins-keyring.asc \
   https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
 echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
