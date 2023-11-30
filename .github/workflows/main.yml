@@ -32,7 +32,7 @@ jobs:
         name: Build and push
         uses: docker/build-push-action@v5
         with:
-          context: "{{defaultContext}}:Docker"
+          context: "portfolio"
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio-website:${{ github.run_number }}
 
